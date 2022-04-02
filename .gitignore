@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# images folder
+images
+
+# intellij files
+.idea/*
