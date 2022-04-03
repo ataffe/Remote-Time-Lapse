@@ -1,6 +1,8 @@
 # TimeLapse
 A python helper for creating a time lapse.
 
+The REST API is created using Flask, and images are taken using opencv.
+
 **SendImage.py**
 
 Uses opencv to take an image and then sends the image to the receiver using a REST API.

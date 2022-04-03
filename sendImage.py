@@ -6,21 +6,17 @@ import schedule
 import time
 
 
-def send_image():
+def send_image(cam):
 	addr = 'http://localhost:5000'
-	test_url = addr + '/image/test'
+	url = addr + '/image/add'
 
 	# prepare headers for http request
 	content_type = 'image/jpeg'
 	headers = {'content-type': content_type}
 
-	capture = cv2.VideoCapture(0)
-
 	ret = None
 	image = None
-	print("Warming up camera")
-	for x in range(5):
-		ret, image = capture.read()
+	ret, image = cam.read()
 
 	if not ret:
 		print("Unable to take picture...exiting.")
@@ -31,7 +27,7 @@ def send_image():
 
 	print("Sending image")
 	# send image using http and get response
-	response = requests.post(test_url, data=encoded_image.tobytes(), headers=headers)
+	response = requests.post(url, data=encoded_image.tobytes(), headers=headers)
 
 	# decode response
 	if response.text is not None:
@@ -39,12 +35,25 @@ def send_image():
 	else:
 		print("Response was empty.")
 
-	capture.release()
+
+def start_camera():
+	cap = cv2.VideoCapture(0)
+	cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
+	cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+	cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+	return cap
 
 
 if __name__ == "__main__":
-	schedule.every(30).seconds.do(send_image)
+	print("Starting time lapse.")
+	camera = start_camera()
+	send_image(camera)
+	schedule.every(30).seconds.do(send_image, cam=camera)
+	print("Time lapse started.")
 
+try:
 	while True:
 		schedule.run_pending()
 		time.sleep(1)
+except KeyboardInterrupt:
+	camera.release()
