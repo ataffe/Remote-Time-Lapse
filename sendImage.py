@@ -56,4 +56,5 @@ try:
 		schedule.run_pending()
 		time.sleep(1)
 except KeyboardInterrupt:
+	print("Releasing camera")
 	camera.release()
