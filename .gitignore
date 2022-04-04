@@ -133,3 +133,6 @@ images
 
 # intellij files
 .idea/*
+
+# videos
+videos/*
