@@ -9,6 +9,10 @@ import getopt
 
 
 def send_image(cam, host, port):
+	if not wait_for_receiver(host, port, 30):
+		print("Receiver not found after 60 seconds, exiting")
+		exit()
+
 	address = 'http://{}:{}'.format(host, port)
 	url = address + '/image/add'
 
@@ -40,6 +44,25 @@ def send_image(cam, host, port):
 		print("Response was empty.")
 
 
+def wait_for_receiver(host, port, num_retries):
+	if num_retries <= 0:
+		return False
+
+	heart_beat_url = 'http://{}:{}/image/heart_beat'.format(host, port)
+	try:
+		response = requests.get(heart_beat_url)
+		if response.status_code != 200:
+			print("No receiver found at {} waiting for receiver to start. Retries left {}".format(heart_beat_url, num_retries - 1))
+			time.sleep(10)
+			wait_for_receiver(host, port, num_retries - 1)
+	except:
+		print("No receiver found at {} waiting for receiver to start. Retries left {}".format(heart_beat_url, num_retries - 1))
+		time.sleep(10)
+		wait_for_receiver(host, port, num_retries - 1)
+
+	return True
+
+
 def start_camera():
 	cap = cv2.VideoCapture(0)
 	cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
@@ -57,7 +80,7 @@ Available options:
 --host				The hostname of the receiver e.g. 11.0.0.6 (default is localhost)
 --port				The port of the receiver e.g. 5000 (default is 5000)
 -i, --interval		The amount of time between images in minutes. (default is 10 minutes)
--h					Dispalys this help menu.
+-h					Displays this help menu.
 """)
 
 
