@@ -9,8 +9,8 @@ import getopt
 
 
 def send_image(cam, host, port):
-	addr = 'http://{}:{}'.format(host, port)
-	url = addr + '/image/add'
+	address = 'http://{}:{}'.format(host, port)
+	url = address + '/image/add'
 
 	# prepare headers for http request
 	content_type = 'image/jpeg'
@@ -94,7 +94,7 @@ if __name__ == "__main__":
 	print("Starting time lapse transmitter with host: {}, port: {}, and interval: every {} minutes.".format(receiver_host, receiver_port, interval))
 	camera = start_camera()
 	send_image(camera, receiver_host, receiver_port)
-	schedule.every(int(interval)).seconds.do(send_image, cam=camera, host=receiver_host, port=receiver_port)
+	schedule.every(int(interval)).minutes.do(send_image, cam=camera, host=receiver_host, port=receiver_port)
 	print("Time lapse started.")
 
 	try:
