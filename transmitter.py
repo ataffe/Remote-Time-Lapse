@@ -48,14 +48,15 @@ def start_camera():
 
 def print_help_message():
 	print("""Usage: python transmitter.py [OPTIONS]
-	Takes images at a specified interval and sends them to a receiver.
+
+Takes images at a specified interval and sends them to a receiver.
 	
-	Available options:
-		--host				The hostname of the receiver e.g. 11.0.0.6 (default is localhost)
-		--port				The port of the receiver e.g. 5000 (default is 5000)
-	-i, --interval		The amount of time between images in minutes. (default is 10 minutes)
-	-h					Dispalys this help menu.
-	""")
+Available options:
+--host				The hostname of the receiver e.g. 11.0.0.6 (default is localhost)
+--port				The port of the receiver e.g. 5000 (default is 5000)
+-i, --interval		The amount of time between images in minutes. (default is 10 minutes)
+-h					Dispalys this help menu.
+""")
 
 
 if __name__ == "__main__":
