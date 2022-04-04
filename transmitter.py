@@ -93,7 +93,7 @@ if __name__ == "__main__":
 	print("Starting time lapse transmitter with host: {}, port: {}, and interval: every {} minutes.".format(receiver_host, receiver_port, interval))
 	camera = start_camera()
 	send_image(camera, receiver_host, receiver_port)
-	schedule.every(10).seconds.do(send_image, cam=camera, host=receiver_host, port=receiver_port)
+	schedule.every(int(interval)).seconds.do(send_image, cam=camera, host=receiver_host, port=receiver_port)
 	print("Time lapse started.")
 
 	try:

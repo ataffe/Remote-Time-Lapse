@@ -12,7 +12,7 @@ Run the following commands in a terminal/command prompt. This assumes python and
 but it can be tweaked to run with Python 2.
 1. `git clone https://github.com/ataffe/TimeLapseHelper.git`
 2. `pip install numpy opencv-python schedule`
-3. `python transmitter.py --host <host> --port <port> <interval in minutes>`   
+3. `python transmitter.py --host <host> --port <port> -i <interval in minutes>`   
 Replace "host" and "port" with the ip address and port of the receiver.
 To get the ip address of the receiver, on the receiver machine run `ipconfig` on Windows and
 `ifconfig` on Unix to get the ip address of the machine. 
