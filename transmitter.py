@@ -18,7 +18,9 @@ def send_image(cam, host, port):
 
 	ret = None
 	image = None
-	ret, image = cam.read()
+	# To allow the camera to do its stuff
+	for x in range(50):
+		ret, image = cam.read()
 
 	if not ret:
 		print("Unable to take picture...exiting.")
