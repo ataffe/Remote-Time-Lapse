@@ -40,3 +40,6 @@ To get the ip address of the receiver, on the receiver machine run `ipconfig` on
 `POST image/add` - Used to send an image from the sender to the receiver.
 
 The REST API is created using [Flask](https://flask.palletsprojects.com/en/2.1.x/), and images are taken using [OpenCV](https://opencv.org/).
+
+Here is a time lapse I created using this creator:
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/weLxdWpJDms/0.jpg)](https://www.youtube.com/watch?v=weLxdWpJDms)
