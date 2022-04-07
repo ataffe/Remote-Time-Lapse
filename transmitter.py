@@ -30,6 +30,7 @@ def send_image(cam, host, port):
 		print("Unable to take picture...exiting.")
 		exit()
 
+	print("Image Size: {} x {}".format(image.shape[1], image.shape[0]))
 	# encode the image as a jpeg
 	_, encoded_image = cv2.imencode('.jpg', image)
 
