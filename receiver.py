@@ -29,9 +29,7 @@ def create_time_lapse():
 		frame_rate = 2
 	else:
 		frame_rate = len(images)/30
-
-	width = 1280
-	height = 720
+	width, height = get_image_size(images[0])
 	fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 	video = cv2.VideoWriter("videos/" + get_video_name(), fourcc, frame_rate, (width, height))
 
@@ -74,6 +72,11 @@ def receive_image():
 	response_pickled = jsonpickle.encode(response)
 
 	return Response(response=response_pickled, status=200, mimetype='application/json')
+
+
+def get_image_size(image_raw):
+	image = cv2.imread(image_raw)
+	return image.shape[1], image.shape[0]
 
 
 def make_directory_if_missing(name):
