@@ -66,6 +66,8 @@ def wait_for_receiver(host, port, num_retries):
 
 def start_camera():
 	cap = cv2.VideoCapture(0)
+	codec = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
+	cap.set(cv2.CAP_PROP_FOURCC, codec)
 	# 4K
 	cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
 	cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
