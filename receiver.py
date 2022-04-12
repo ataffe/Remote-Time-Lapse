@@ -21,17 +21,32 @@ def heat_beat():
 # Function to create the time lapse video
 @app.route('/image/create_time_lapse', methods=['POST'])
 def create_time_lapse():
+
 	images = sorted(glob.glob('images/*.jpg'))
 	print("Total number of images: {}".format(len(images)))
 	make_directory_if_missing("videos")
 	# Calculate frame rate in frames per second
-	if len(images) < 30:
-		frame_rate = 2
-	else:
-		frame_rate = len(images)/30
+	# if len(images) < 30:
+	# 	frame_rate = 2
+	# else:
+	# 	frame_rate = 30
+
+	frame_rate = 30
+	data = request.json
+	if "frame_rate" in data.keys():
+		frame_rate = data["frame_rate"]
+
 	width, height = get_image_size(images[0])
+	if "width" in data.keys():
+		width = data["width"]
+	if "height" in data.keys():
+		height = data["height"]
 	fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-	video = cv2.VideoWriter("videos/" + get_video_name(), fourcc, frame_rate, (width, height))
+	video_name = "videos/" + get_video_name("")
+	if "name_suffix" in data.keys():
+		video_name = "videos/" + get_video_name("_" + data["name_suffix"])
+	print("Generating video name: {}, width: {}, height: {}, frame rate: {}".format(video_name, width, height, frame_rate))
+	video = cv2.VideoWriter(video_name, fourcc, frame_rate, (width, height))
 
 	for ctr in range(len(images)):
 		# Load image
@@ -92,10 +107,10 @@ def get_image_name():
 	return "TL_" + date_string + ".jpg"
 
 
-def get_video_name():
+def get_video_name(suffix):
 	now = datetime.now()
 	date_string = now.strftime("%d-%m-%Y_%H-%M")
-	return "TL_Video_" + date_string + ".mp4"
+	return "TL_Video_" + date_string + suffix + ".mp4"
 
 
 # start flask app

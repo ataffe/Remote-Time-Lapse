@@ -34,6 +34,14 @@ To get the ip address of the receiver, on the receiver machine run `ipconfig` on
 **Default Port:** 5000
 
 `POST image/create_time_lapse` - Used for creating a time lapse using the images taken by the sender.
+An optional json payload can be sent to customize the video name suffix, frame rate, width, and height.
+Here is an example payload:
+`{
+	"frame_rate": 20,
+	"width": 2560,
+	"height": 1440,
+	"name_suffix": "youtube"
+}`
 
 `GET image/heart_beat` - Used for checking that the server is alive.
 
