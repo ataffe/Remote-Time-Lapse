@@ -30,6 +30,7 @@ def send_image(cam, host, port):
 		print("Unable to take picture...exiting.")
 		exit()
 
+	print("Image Size: {} x {}".format(image.shape[1], image.shape[0]))
 	# encode the image as a jpeg
 	_, encoded_image = cv2.imencode('.jpg', image)
 
@@ -65,9 +66,11 @@ def wait_for_receiver(host, port, num_retries):
 
 def start_camera():
 	cap = cv2.VideoCapture(0)
-	cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
-	cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-	cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+	codec = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
+	cap.set(cv2.CAP_PROP_FOURCC, codec)
+	# 4K
+	cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
+	cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
 	return cap
 
 
