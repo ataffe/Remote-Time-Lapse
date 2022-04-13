@@ -50,4 +50,4 @@ Here is an example payload:
 The REST API is created using [Flask](https://flask.palletsprojects.com/en/2.1.x/), and images are taken using [OpenCV](https://opencv.org/).
 
 Here is a time lapse I created using this creator:   
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/5YqcoLguYZo/0.jpg)](https://www.youtube.com/watch?v=5YqcoLguYZo)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/zE-rmkrwNz0/0.jpg)](https://www.youtube.com/watch?v=5YqcoLguYZo)
